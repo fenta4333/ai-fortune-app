@@ -196,7 +196,8 @@ fun MenuItem(
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.weight(1f)
             )
-            trailing?.invoke() ?: if (onClick != null) {
+            trailing?.invoke()
+            if (trailing == null && onClick != null) {
                 Icon(
                     Icons.Default.ChevronRight,
                     contentDescription = null,

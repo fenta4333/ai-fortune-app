@@ -25,7 +25,7 @@ data class ChatRequest(
     val model: String,
     val messages: List<ChatMessage>,
     val max_tokens: Int = 2048,
-    val temperature: Float = 0.7
+    val temperature: Float = 0.7f
 )
 
 data class ChatResponse(
