@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AI Fortune</string>
+    <string name="nav_home">首页</string>
+    <string name="nav_features">功能</string>
+    <string name="nav_api">API设置</string>
+    <string name="nav_profile">我的</string>
+</resources>
