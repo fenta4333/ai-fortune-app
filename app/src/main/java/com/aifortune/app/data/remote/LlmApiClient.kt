@@ -73,10 +73,19 @@ class LlmApiClient @Inject constructor() {
         })
         .build()
 
-    private fun createService(baseUrl: String): LlmApiService {
+    private fun createService(baseUrl: String, apiKey: String): LlmApiService {
+        val client = okHttpClient.newBuilder()
+            .addInterceptor { chain ->
+                val request = chain.request().newBuilder()
+                    .addHeader("Authorization", "Bearer $apiKey")
+                    .build()
+                chain.proceed(request)
+            }
+            .build()
+        
         return Retrofit.Builder()
             .baseUrl(getBaseUrl(baseUrl))
-            .client(okHttpClient)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(LlmApiService::class.java)
@@ -105,7 +114,7 @@ class LlmApiClient @Inject constructor() {
                 temperature = config.temperature
             )
 
-            val service = createService(config.url)
+            val service = createService(config.url, config.apiKey)
             val response = service.chat(config.url, request)
 
             if (response.error != null) {
