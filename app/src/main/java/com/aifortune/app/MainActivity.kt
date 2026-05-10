@@ -22,6 +22,8 @@ import com.aifortune.app.ui.navigation.AppNavHost
 import com.aifortune.app.ui.navigation.Screen
 import com.aifortune.app.ui.theme.AIFortuneTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -50,7 +52,18 @@ sealed class BottomNavItem(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    mainViewModel: MainViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+) {
+    val isFirstLaunch by mainViewModel.isFirstLaunch.collectAsState()
+    
+    if (isFirstLaunch) {
+        WelcomeScreen(
+            onComplete = { mainViewModel.completeFirstLaunch() }
+        )
+        return
+    }
+    
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination

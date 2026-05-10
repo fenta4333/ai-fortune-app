@@ -57,3 +57,31 @@ data class AstrologySign(
     val element: String,  // 火、土、风、水
     val quality: String    // 基本、固定、变动
 )
+
+@Serializable
+data class HistoryItem(
+    val id: String = java.util.UUID.randomUUID().toString(),
+    val type: FortuneType,
+    val title: String,
+    val content: String,
+    val input: String = "",  // 用户输入的摘要
+    val timestamp: Long = System.currentTimeMillis()
+) {
+    fun toShareText(): String = """
+【${type.displayName}】$title
+
+$content
+
+——来自 AI Fortune App
+    """.trimIndent()
+}
+
+fun FortuneType.displayName(): String = when (this) {
+    FortuneType.BAZI -> "八字命理"
+    FortuneType.XUEYE -> "求学建议"
+    FortuneType.SHANGYE -> "求商建议"
+    FortuneType.XINGZUO -> "星座分析"
+    FortuneType.NAME -> "姓名分析"
+    FortuneType.TAROT -> "塔罗牌"
+    FortuneType.NAMEGEN -> "起名字"
+}

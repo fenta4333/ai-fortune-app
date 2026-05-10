@@ -25,7 +25,12 @@ class TarotViewModel @Inject constructor(private val repository: FortuneReposito
                 if (defaultConfig == null) { _uiState.update { it.copy(isLoading = false, error = "请先在API设置中配置大模型API") }; return@launch }
                 val cardNames = cards.joinToString(", ") { "${it.name}(${it.nameEn}): ${it.meaning}" }
                 val input = FortuneInput(name = "抽取的牌：$cardNames", birthYear = 2000, birthMonth = 1, birthDay = 1, birthHour = 0, gender = "男", type = FortuneType.TAROT)
-                repository.queryFortune(input, defaultConfig).onSuccess { r -> _uiState.update { it.copy(isLoading = false, result = r) } }.onFailure { e -> _uiState.update { it.copy(isLoading = false, error = e.message) } }
+                repository.queryFortune(input, defaultConfig)
+                    .onSuccess { r ->
+                        repository.addHistoryItem(HistoryItem(type = r.type, title = r.title, content = r.content, input = cardNames))
+                        _uiState.update { it.copy(isLoading = false, result = r) }
+                    }
+                    .onFailure { e -> _uiState.update { it.copy(isLoading = false, error = e.message) } }
             } catch (e: Exception) { _uiState.update { it.copy(isLoading = false, error = e.message) } }
         }
     }

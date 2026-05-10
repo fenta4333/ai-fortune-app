@@ -10,4 +10,10 @@ interface FortuneRepository {
     suspend fun deleteApiConfig(id: String)
     suspend fun getApiConfigById(id: String): ApiConfig?
     suspend fun queryFortune(input: FortuneInput, apiConfig: ApiConfig?): Result<FortuneResult>
+    
+    // History
+    fun getHistoryItems(): Flow<List<HistoryItem>>
+    suspend fun addHistoryItem(item: HistoryItem)
+    suspend fun deleteHistoryItem(id: String)
+    suspend fun clearHistory()
 }

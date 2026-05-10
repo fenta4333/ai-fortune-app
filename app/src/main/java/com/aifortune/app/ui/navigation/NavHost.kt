@@ -19,12 +19,15 @@ import com.aifortune.app.ui.screens.shangye.ShangyeScreen
 import com.aifortune.app.ui.screens.tarot.TarotScreen
 import com.aifortune.app.ui.screens.xingzuo.XingzuoScreen
 import com.aifortune.app.ui.screens.xueye.XueyeScreen
+import com.aifortune.app.ui.screens.history.HistoryScreen
+import com.aifortune.app.ui.screens.welcome.WelcomeScreen
 
 sealed class Screen(val route: String) {
     object Home : Screen("home")
     object Features : Screen("features")
     object ApiPanel : Screen("api_panel")
     object Profile : Screen("profile")
+    object History : Screen("history")
     object Bazi : Screen("bazi")
     object Xueye : Screen("xueye")
     object Shangye : Screen("shangye")
@@ -87,7 +90,14 @@ fun AppNavHost(
         }
         
         composable(Screen.Profile.route) {
-            ProfileScreen(onNavigateBack = { navController.popBackStack() })
+            ProfileScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onNavigateToHistory = { navController.navigate(Screen.History.route) }
+            )
+        }
+
+        composable(Screen.History.route) {
+            HistoryScreen(onNavigateBack = { navController.popBackStack() })
         }
         
         composable(Screen.Bazi.route) {

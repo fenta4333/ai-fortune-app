@@ -70,6 +70,15 @@ class BaziViewModel @Inject constructor(
 
                 repository.queryFortune(input, defaultConfig)
                     .onSuccess { result ->
+                        // Save to history
+                        val historyItem = HistoryItem(
+                            type = result.type,
+                            title = result.title,
+                            content = result.content,
+                            input = "${name}, ${birthYear}年${birthMonth}月${birthDay}日, $gender"
+                        )
+                        repository.addHistoryItem(historyItem)
+                        
                         _uiState.update { it.copy(isLoading = false, result = result) }
                     }
                     .onFailure { e ->

@@ -25,7 +25,12 @@ class NameGenViewModel @Inject constructor(private val repository: FortuneReposi
                 if (defaultConfig == null) { _uiState.update { it.copy(isLoading = false, error = "请先在API设置中配置大模型API") }; return@launch }
                 val year = birthYear.toIntOrNull() ?: 2024
                 val input = FortuneInput(name = surname, birthYear = year, birthMonth = 1, birthDay = 1, birthHour = 0, gender = gender, type = FortuneType.NAMEGEN)
-                repository.queryFortune(input, defaultConfig).onSuccess { r -> _uiState.update { it.copy(isLoading = false, result = r) } }.onFailure { e -> _uiState.update { it.copy(isLoading = false, error = e.message) } }
+                repository.queryFortune(input, defaultConfig)
+                    .onSuccess { r ->
+                        repository.addHistoryItem(HistoryItem(type = r.type, title = r.title, content = r.content, input = "$surname, $gender, ${year}年"))
+                        _uiState.update { it.copy(isLoading = false, result = r) }
+                    }
+                    .onFailure { e -> _uiState.update { it.copy(isLoading = false, error = e.message) } }
             } catch (e: Exception) { _uiState.update { it.copy(isLoading = false, error = e.message) } }
         }
     }

@@ -22,7 +22,8 @@ import com.aifortune.app.ui.theme.PrimaryViolet
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    onNavigateToHistory: () -> Unit = {}
 ) {
     var darkMode by remember { mutableStateOf(true) }
     var notifications by remember { mutableStateOf(true) }
@@ -133,7 +134,7 @@ fun ProfileScreen(
             MenuItem(
                 icon = Icons.Default.History,
                 title = "历史记录",
-                onClick = { }
+                onClick = onNavigateToHistory
             )
 
             MenuItem(

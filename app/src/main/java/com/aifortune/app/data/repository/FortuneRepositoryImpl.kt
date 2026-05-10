@@ -31,6 +31,20 @@ class FortuneRepositoryImpl @Inject constructor(
         return localDataStore.getApiConfigById(id)
     }
 
+    override fun getHistoryItems(): Flow<List<HistoryItem>> = localDataStore.historyItems
+
+    override suspend fun addHistoryItem(item: HistoryItem) {
+        localDataStore.addHistoryItem(item)
+    }
+
+    override suspend fun deleteHistoryItem(id: String) {
+        localDataStore.deleteHistoryItem(id)
+    }
+
+    override suspend fun clearHistory() {
+        localDataStore.clearHistory()
+    }
+
     override suspend fun queryFortune(input: FortuneInput, apiConfig: ApiConfig?): Result<FortuneResult> {
         if (apiConfig == null) {
             return Result.failure(Exception("请先配置API"))
