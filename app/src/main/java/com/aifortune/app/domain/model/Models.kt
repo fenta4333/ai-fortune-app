@@ -68,7 +68,7 @@ data class HistoryItem(
     val timestamp: Long = System.currentTimeMillis()
 ) {
     fun toShareText(): String = """
-【${type.displayName}】$title
+【${type.nameCn()}】$title
 
 $content
 
@@ -76,7 +76,7 @@ $content
     """.trimIndent()
 }
 
-fun FortuneType.displayName(): String = when (this) {
+fun FortuneType.nameCn(): String = when (this) {
     FortuneType.BAZI -> "八字命理"
     FortuneType.XUEYE -> "求学建议"
     FortuneType.SHANGYE -> "求商建议"

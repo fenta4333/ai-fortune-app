@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.aifortune.app.domain.model.FortuneType
 import com.aifortune.app.domain.model.HistoryItem
-import com.aifortune.app.domain.model.displayName
+import com.aifortune.app.domain.model.nameCn
 import com.aifortune.app.ui.theme.PrimaryIndigo
 import com.aifortune.app.ui.theme.PrimaryViolet
 import java.text.SimpleDateFormat
@@ -212,7 +212,7 @@ private fun HistoryCard(
                     color = getTypeColor(item.type).copy(alpha = 0.15f)
                 ) {
                     Text(
-                        text = item.type.displayName(),
+                        text = item.type.nameCn(),
                         style = MaterialTheme.typography.labelSmall,
                         color = getTypeColor(item.type),
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)

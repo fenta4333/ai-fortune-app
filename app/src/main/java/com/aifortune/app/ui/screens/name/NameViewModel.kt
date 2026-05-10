@@ -27,7 +27,7 @@ class NameViewModel @Inject constructor(private val repository: FortuneRepositor
                 val input = FortuneInput(name = name, birthYear = year, birthMonth = 1, birthDay = 1, birthHour = 0, gender = "男", type = FortuneType.NAME)
                 repository.queryFortune(input, defaultConfig)
                     .onSuccess { r ->
-                        repository.addHistoryItem(HistoryItem(type = r.type, title = r.title, content = r.content, input = "$name, $birthYear年"))
+                        repository.addHistoryItem(HistoryItem(type = r.type, title = r.title, content = r.content, input = "$name, ${birthYear}年"))
                         _uiState.update { it.copy(isLoading = false, result = r) }
                     }
                     .onFailure { e -> _uiState.update { it.copy(isLoading = false, error = e.message) } }

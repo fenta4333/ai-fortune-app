@@ -20,6 +20,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.aifortune.app.ui.navigation.AppNavHost
 import com.aifortune.app.ui.navigation.Screen
+import com.aifortune.app.ui.screens.welcome.WelcomeScreen
 import com.aifortune.app.ui.theme.AIFortuneTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
