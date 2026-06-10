@@ -19,6 +19,8 @@ import androidx.core.view.WindowCompat
 
 // 核心色彩
 val DeepInk = Color(0xFF0A0E1A)           // 深墨背景
+val PrimaryIndigo = Color(0xFF5B67CA)     // 主色-靛蓝（兼容旧代码）
+val PrimaryViolet = Color(0xFF8B5CF6)     // 主色-紫色（兼容旧代码）
 val LiquidGlassBase = Color(0xFF1A1A2E)  // 玻璃底层
 val LiquidGlassHighlight = Color(0xFF2A2A4E) // 玻璃高光
 val Crimson = Color(0xFFC41E3A)            // 朱砂点缀

@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.aifortune.app.ui.theme.*
 
@@ -310,8 +311,9 @@ fun GlassQuickCard(
     )
     
     Box(
-        modifier = modifier
+        modifier = Modifier
             .aspectRatio(1.5f)
+            .then(Modifier.size(width = 120.dp, height = 80.dp))
             .graphicsLayer { scaleX = scale; scaleY = scale }
             .clip(RoundedCornerShape(20.dp))
             .background(
