@@ -12,59 +12,59 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
-// Primary Colors
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+// ============================================================
+// AI Fortune - 液态玻璃设计系统
+// 高级感 · 东方神秘 · 丝滑动效
+// ============================================================
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+// 核心色彩
+val DeepInk = Color(0xFF0A0E1A)           // 深墨背景
+val LiquidGlassBase = Color(0xFF1A1A2E)  // 玻璃底层
+val LiquidGlassHighlight = Color(0xFF2A2A4E) // 玻璃高光
+val Crimson = Color(0xFFC41E3A)            // 朱砂点缀
+val MoltenGold = Color(0xFFD4AF37)         // 流金光泽
+val Amber = Color(0xFFF5A623)              // 琥珀暖光
+val Ivory = Color(0xFFF5F5DC)             // 象牙白文字
+val SmokeGray = Color(0xFF8B8B8B)         // 烟灰次要文字
+val NebulaPurple = Color(0xFF6B5B95)      // 星云紫
 
-// Custom Colors
-val PrimaryIndigo = Color(0xFF6366F1)
-val PrimaryViolet = Color(0xFF8B5CF6)
-val AccentAmber = Color(0xFFF59E0B)
+// 渐变色彩
+val GoldShimmer = Color(0xFFE8D5A0)       // 金色微光
+val RoseGold = Color(0xFFB76E79)          // 玫瑰金
 
-// Dark Theme Colors
-val DarkBackground = Color(0xFF0F0F23)
-val DarkSurface = Color(0xFF1A1A2E)
-val DarkCard = Color(0xFF16213E)
-val DarkText = Color(0xFFE2E8F0)
-val DarkTextSecondary = Color(0xFF94A3B8)
-
-// Light Theme Colors  
+// 亮色主题（保持原样，专注深色）
 val LightBackground = Color(0xFFFAFAFA)
 val LightSurface = Color(0xFFFFFFFF)
-val LightCard = Color(0xFFFFFFFF)
 val LightText = Color(0xFF1E293B)
 val LightTextSecondary = Color(0xFF64748B)
 
+// 深色主题 - 液态玻璃版
 private val DarkColorScheme = darkColorScheme(
-    primary = PrimaryIndigo,
-    secondary = PrimaryViolet,
-    tertiary = AccentAmber,
-    background = DarkBackground,
-    surface = DarkSurface,
-    surfaceVariant = DarkCard,
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.Black,
-    onBackground = DarkText,
-    onSurface = DarkText,
-    onSurfaceVariant = DarkTextSecondary
+    primary = MoltenGold,
+    secondary = Crimson,
+    tertiary = Amber,
+    background = DeepInk,
+    surface = LiquidGlassBase,
+    surfaceVariant = LiquidGlassHighlight,
+    onPrimary = DeepInk,
+    onSecondary = Ivory,
+    onTertiary = DeepInk,
+    onBackground = Ivory,
+    onSurface = Ivory,
+    onSurfaceVariant = SmokeGray
 )
 
+// 亮色主题（简化）
 private val LightColorScheme = lightColorScheme(
-    primary = PrimaryIndigo,
-    secondary = PrimaryViolet,
-    tertiary = AccentAmber,
+    primary = Crimson,
+    secondary = NebulaPurple,
+    tertiary = MoltenGold,
     background = LightBackground,
     surface = LightSurface,
-    surfaceVariant = LightCard,
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.Black,
+    surfaceVariant = Color(0xFFF1F5F9),
+    onPrimary = Ivory,
+    onSecondary = Ivory,
+    onTertiary = DeepInk,
     onBackground = LightText,
     onSurface = LightText,
     onSurfaceVariant = LightTextSecondary
@@ -72,7 +72,7 @@ private val LightColorScheme = lightColorScheme(
 
 @Composable
 fun AIFortuneTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean = true, // 默认深色，配合液态玻璃
     content: @Composable () -> Unit
 ) {
     val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
@@ -81,8 +81,8 @@ fun AIFortuneTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = Color.Transparent.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
+            window.statusBarColor = DeepInk.toArgb()
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
         }
     }
 
