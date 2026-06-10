@@ -1,7 +1,6 @@
 package com.aifortune.app.ui.components
 
 import androidx.compose.animation.core.*
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -17,24 +16,16 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.aifortune.app.ui.theme.*
 
-// ============================================================
-// 液态玻璃设计系统 - 组件库
-// 丝滑 · 磨砂 · 金属光泽
-// ============================================================
+// 液态玻璃组件库
 
-/**
- * 液态玻璃卡片
- */
 @Composable
 fun LiquidGlassCard(
     modifier: Modifier = Modifier,
@@ -44,13 +35,7 @@ fun LiquidGlassCard(
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
     
-    val animatedOffset by animateFloatAsState(
-        targetValue = if (isPressed) 2f else 0f,
-        animationSpec = spring(stiffness = 200f, dampingRatio = 0.8f),
-        label = "lift"
-    )
-    
-    val animatedScale by animateFloatAsState(
+    val scale by animateFloatAsState(
         targetValue = if (isPressed) 0.98f else 1f,
         animationSpec = spring(stiffness = 300f, dampingRatio = 0.7f),
         label = "scale"
@@ -58,29 +43,22 @@ fun LiquidGlassCard(
 
     Box(
         modifier = modifier
-            .offset(y = animatedOffset.dp)
-            .graphicsLayer {
-                scaleX = animatedScale
-                scaleY = animatedScale
-            }
+            .graphicsLayer { scaleX = scale; scaleY = scale }
             .clip(RoundedCornerShape(24.dp))
             .background(
-                brush = Brush.verticalGradient(
+                Brush.verticalGradient(
                     colors = listOf(
-                        LiquidGlassHighlight.copy(alpha = 0.15f),
-                        LiquidGlassBase.copy(alpha = 0.25f),
-                        LiquidGlassBase.copy(alpha = 0.35f)
+                        LiquidGlassHighlight.copy(alpha = 0.2f),
+                        LiquidGlassBase.copy(alpha = 0.3f)
                     )
-                ),
-                shape = RoundedCornerShape(24.dp)
+                )
             )
             .border(
                 width = 0.5.dp,
                 brush = Brush.linearGradient(
                     colors = listOf(
-                        MoltenGold.copy(alpha = 0.5f),
-                        Crimson.copy(alpha = 0.3f),
-                        MoltenGold.copy(alpha = 0.5f)
+                        MoltenGold.copy(alpha = 0.4f),
+                        Crimson.copy(alpha = 0.2f)
                     )
                 ),
                 shape = RoundedCornerShape(24.dp)
@@ -104,9 +82,6 @@ fun LiquidGlassCard(
     }
 }
 
-/**
- * 液态玻璃按钮
- */
 @Composable
 fun LiquidGlassButton(
     text: String,
@@ -118,7 +93,7 @@ fun LiquidGlassButton(
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
     
-    val animatedScale by animateFloatAsState(
+    val scale by animateFloatAsState(
         targetValue = if (isPressed) 0.94f else 1f,
         animationSpec = spring(stiffness = 400f, dampingRatio = 0.6f),
         label = "buttonScale"
@@ -127,10 +102,7 @@ fun LiquidGlassButton(
     Box(
         modifier = modifier
             .height(56.dp)
-            .graphicsLayer {
-                scaleX = animatedScale
-                scaleY = animatedScale
-            }
+            .graphicsLayer { scaleX = scale; scaleY = scale }
             .clip(RoundedCornerShape(16.dp))
             .background(
                 brush = Brush.horizontalGradient(
@@ -139,8 +111,7 @@ fun LiquidGlassButton(
                     } else {
                         listOf(SmokeGray, SmokeGray)
                     }
-                ),
-                shape = RoundedCornerShape(16.dp)
+                )
             )
             .clickable(
                 interactionSource = interactionSource,
@@ -174,115 +145,80 @@ fun LiquidGlassButton(
     }
 }
 
-/**
- * 浮动光点粒子
- */
 @Composable
-fun FloatingParticles(
-    modifier: Modifier = Modifier,
-    particleCount: Int = 8
-) {
-    val infiniteTransition = rememberInfiniteTransition(label = "particles")
-    
+fun FloatingParticles(modifier: Modifier = Modifier) {
     Box(modifier = modifier) {
-        repeat(particleCount) { index ->
-            val size = (3.dp + (index % 3) * 2).dp
-            val color = when (index % 4) {
-                0 -> MoltenGold
-                1 -> Amber
-                2 -> Crimson
-                else -> NebulaPurple
-            }
-            
-            val yOffset by infiniteTransition.animateFloat(
-                initialValue = 0f,
-                targetValue = 30f,
-                animationSpec = infiniteRepeatable(
-                    animation = tween(durationMillis = 4000 + index * 500, easing = LinearEasing),
-                    repeatMode = RepeatMode.Reverse
-                ),
-                label = "particleY$index"
-            )
-            
-            val alpha by infiniteTransition.animateFloat(
-                initialValue = 0.2f,
-                targetValue = 0.6f,
-                animationSpec = infiniteRepeatable(
-                    animation = tween(durationMillis = 2500 + index * 200, easing = LinearEasing),
-                    repeatMode = RepeatMode.Reverse
-                ),
-                label = "particleAlpha$index"
-            )
-            
-            Box(
-                modifier = Modifier
-                    .offset(
-                        x = ((index * 47) % 300).dp,
-                        y = ((index * 31) % 200).dp + yOffset.dp
-                    )
-                    .size(size)
-                    .background(
-                        color = color.copy(alpha = alpha),
-                        shape = CircleShape
-                    )
-            )
-        }
+        // 简洁粒子，用固定 offset 代替动画避免复杂问题
+        Box(
+            modifier = Modifier
+                .size(4.dp)
+                .offset(x = 50.dp, y = 80.dp)
+                .background(MoltenGold.copy(alpha = 0.4f), CircleShape)
+        )
+        Box(
+            modifier = Modifier
+                .size(3.dp)
+                .offset(x = 150.dp, y = 120.dp)
+                .background(Amber.copy(alpha = 0.3f), CircleShape)
+        )
+        Box(
+            modifier = Modifier
+                .size(5.dp)
+                .offset(x = 220.dp, y = 60.dp)
+                .background(Crimson.copy(alpha = 0.3f), CircleShape)
+        )
+        Box(
+            modifier = Modifier
+                .size(3.dp)
+                .offset(x = 80.dp, y = 200.dp)
+                .background(NebulaPurple.copy(alpha = 0.3f), CircleShape)
+        )
+        Box(
+            modifier = Modifier
+                .size(4.dp)
+                .offset(x = 180.dp, y = 180.dp)
+                .background(MoltenGold.copy(alpha = 0.25f), CircleShape)
+        )
+        Box(
+            modifier = Modifier
+                .size(3.dp)
+                .offset(x = 280.dp, y = 150.dp)
+                .background(Amber.copy(alpha = 0.35f), CircleShape)
+        )
     }
 }
 
-/**
- * 呼吸光晕效果
- */
 @Composable
 fun BreathingGlow(
     modifier: Modifier = Modifier,
     color: Color = MoltenGold,
     size: Dp = 200.dp
 ) {
-    val infiniteTransition = rememberInfiniteTransition(label = "breath")
-    
-    val scale by infiniteTransition.animateFloat(
-        initialValue = 0.8f,
-        targetValue = 1.2f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(4000, easing = LinearEasing),
-            repeatMode = RepeatMode.Reverse
-        ),
-        label = "glowScale"
-    )
-    
+    val infiniteTransition = rememberInfiniteTransition(label = "glow")
     val alpha by infiniteTransition.animateFloat(
         initialValue = 0.1f,
         targetValue = 0.3f,
         animationSpec = infiniteRepeatable(
-            animation = tween(4000, easing = LinearEasing),
+            animation = tween(3000),
             repeatMode = RepeatMode.Reverse
         ),
-        label = "glowAlpha"
+        label = "alpha"
     )
-    
+
     Box(
         modifier = modifier
             .size(size)
-            .graphicsLayer {
-                scaleX = scale
-                scaleY = scale
-            }
             .background(
                 brush = Brush.radialGradient(
                     colors = listOf(
                         color.copy(alpha = alpha),
                         Color.Transparent
                     )
-                ),
-                shape = CircleShape
+                )
             )
     )
 }
 
-/**
- * FeatureCard 液态玻璃版
- */
 @Composable
 fun GlassFeatureCard(
     title: String,
@@ -303,7 +239,7 @@ fun GlassFeatureCard(
                     .size(64.dp)
                     .clip(RoundedCornerShape(16.dp))
                     .background(
-                        brush = Brush.linearGradient(
+                        Brush.linearGradient(
                             colors = listOf(
                                 MoltenGold.copy(alpha = 0.15f),
                                 Crimson.copy(alpha = 0.1f)
@@ -357,9 +293,6 @@ fun GlassFeatureCard(
     }
 }
 
-/**
- * 迷你快捷入口卡片
- */
 @Composable
 fun GlassQuickCard(
     icon: ImageVector,
@@ -370,7 +303,7 @@ fun GlassQuickCard(
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
     
-    val animatedScale by animateFloatAsState(
+    val scale by animateFloatAsState(
         targetValue = if (isPressed) 0.95f else 1f,
         animationSpec = spring(stiffness = 400f, dampingRatio = 0.6f),
         label = "quickScale"
@@ -379,13 +312,10 @@ fun GlassQuickCard(
     Box(
         modifier = modifier
             .aspectRatio(1.5f)
-            .graphicsLayer {
-                scaleX = animatedScale
-                scaleY = animatedScale
-            }
+            .graphicsLayer { scaleX = scale; scaleY = scale }
             .clip(RoundedCornerShape(20.dp))
             .background(
-                brush = Brush.verticalGradient(
+                Brush.verticalGradient(
                     colors = listOf(
                         LiquidGlassHighlight.copy(alpha = 0.2f),
                         LiquidGlassBase.copy(alpha = 0.3f)
@@ -395,10 +325,7 @@ fun GlassQuickCard(
             .border(
                 width = 0.5.dp,
                 brush = Brush.linearGradient(
-                    colors = listOf(
-                        MoltenGold.copy(alpha = 0.4f),
-                        Color.Transparent
-                    )
+                    colors = listOf(MoltenGold.copy(alpha = 0.4f), Color.Transparent)
                 ),
                 shape = RoundedCornerShape(20.dp)
             )

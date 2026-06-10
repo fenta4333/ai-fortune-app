@@ -53,10 +53,7 @@ fun HomeScreen(
             )
     ) {
         // 浮动粒子背景
-        FloatingParticles(
-            modifier = Modifier.fillMaxSize(),
-            particleCount = 12
-        )
+        FloatingParticles(modifier = Modifier.fillMaxSize())
         
         // 中央呼吸光晕
         BreathingGlow(
