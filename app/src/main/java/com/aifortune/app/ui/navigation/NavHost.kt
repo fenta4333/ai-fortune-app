@@ -90,6 +90,7 @@ fun AppNavHost(
         }
         
         composable(Screen.Profile.route) {
+            // ProfileScreen uses hiltViewModel() internally, no need to pass parameters
             ProfileScreen(
                 onNavigateBack = { navController.popBackStack() },
                 onNavigateToHistory = { navController.navigate(Screen.History.route) }

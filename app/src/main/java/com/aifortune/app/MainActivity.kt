@@ -13,14 +13,17 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.aifortune.app.ui.components.BackgroundContainer
 import com.aifortune.app.ui.navigation.AppNavHost
 import com.aifortune.app.ui.navigation.Screen
 import com.aifortune.app.ui.screens.welcome.WelcomeScreen
 import com.aifortune.app.ui.theme.AIFortuneTheme
+import com.aifortune.app.ui.theme.ThemeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -32,8 +35,18 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            AIFortuneTheme(darkTheme = true) {
-                MainScreen()
+            val themeViewModel: ThemeViewModel = hiltViewModel()
+            val themeConfig by themeViewModel.themeConfig.collectAsState()
+
+            AIFortuneTheme(config = themeConfig) {
+                BackgroundContainer(
+                    backgroundImagePath = themeConfig.backgroundImagePath,
+                    blurRadius = themeConfig.blurRadius,
+                    dimAlpha = themeConfig.dimAlpha,
+                    useGradient = themeConfig.useGradientBackground
+                ) {
+                    MainScreen(themeViewModel = themeViewModel)
+                }
             }
         }
     }
@@ -54,17 +67,18 @@ sealed class BottomNavItem(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
-    mainViewModel: MainViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    mainViewModel: MainViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
+    themeViewModel: ThemeViewModel
 ) {
     val isFirstLaunch by mainViewModel.isFirstLaunch.collectAsState()
-    
+
     if (isFirstLaunch) {
         WelcomeScreen(
             onComplete = { mainViewModel.completeFirstLaunch() }
         )
         return
     }
-    
+
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -76,7 +90,6 @@ fun MainScreen(
         BottomNavItem.Profile
     )
 
-    // Determine if bottom nav should be shown
     val showBottomNav = currentDestination?.route in bottomNavItems.map { it.route }
 
     Scaffold(
@@ -87,8 +100,8 @@ fun MainScreen(
                 exit = slideOutVertically(targetOffsetY = { it })
             ) {
                 NavigationBar(
-                    containerColor = MaterialTheme.colorScheme.surface,
-                    tonalElevation = 8.dp
+                    containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.85f),
+                    tonalElevation = 0.dp
                 ) {
                     bottomNavItems.forEach { item ->
                         val selected = currentDestination?.hierarchy?.any { it.route == item.route } == true
@@ -122,7 +135,9 @@ fun MainScreen(
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            AppNavHost(navController = navController)
+            AppNavHost(
+                navController = navController
+            )
         }
     }
 }
