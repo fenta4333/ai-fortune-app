@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.aifortune.app.ui.theme.*
+import com.aifortune.app.ui.util.AppIcons
 
 // 液态玻璃组件库
 
@@ -285,7 +286,7 @@ fun GlassFeatureCard(
             }
             
             Icon(
-                imageVector = Icons.Default.ChevronRight,
+                imageVector = AppIcons.ChevronRight,
                 contentDescription = null,
                 tint = MoltenGold.copy(alpha = 0.6f),
                 modifier = Modifier.size(20.dp)

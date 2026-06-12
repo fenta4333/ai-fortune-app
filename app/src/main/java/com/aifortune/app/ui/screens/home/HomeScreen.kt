@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.aifortune.app.ui.components.*
 import com.aifortune.app.ui.theme.*
+import com.aifortune.app.ui.util.AppIcons
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -150,7 +151,7 @@ fun HomeScreen(
                                 contentAlignment = Alignment.Center
                             ) {
                                 Icon(
-                                    imageVector = Icons.Default.AutoAwesome,
+                                    imageVector = AppIcons.AutoAwesome,
                                     contentDescription = null,
                                     tint = MoltenGold,
                                     modifier = Modifier.size(28.dp)
@@ -230,7 +231,7 @@ fun HomeScreen(
                         GlassFeatureCard(
                             title = "八字命理",
                             description = "深度分析命理格局",
-                            icon = Icons.Default.AccountBalance,
+                            icon = AppIcons.AccountBalance,
                             onClick = onNavigateToFeatures
                         )
                         GlassFeatureCard(
@@ -242,7 +243,7 @@ fun HomeScreen(
                         GlassFeatureCard(
                             title = "塔罗牌",
                             description = "神秘塔罗解读",
-                            icon = Icons.Default.Psychology,
+                            icon = AppIcons.Psychology,
                             onClick = onNavigateToFeatures
                         )
                         GlassFeatureCard(

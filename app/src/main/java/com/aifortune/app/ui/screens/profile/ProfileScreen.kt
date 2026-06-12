@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.aifortune.app.ui.theme.PrimaryIndigo
 import com.aifortune.app.ui.theme.PrimaryViolet
+import com.aifortune.app.ui.util.AppIcons
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -110,7 +111,7 @@ fun ProfileScreen(
             Spacer(modifier = Modifier.height(12.dp))
 
             MenuItem(
-                icon = Icons.Default.DarkMode,
+                icon = AppIcons.DarkMode,
                 title = "深色模式",
                 trailing = {
                     Switch(
@@ -132,7 +133,7 @@ fun ProfileScreen(
             )
 
             MenuItem(
-                icon = Icons.Default.History,
+                icon = AppIcons.History,
                 title = "历史记录",
                 onClick = onNavigateToHistory
             )
@@ -200,7 +201,7 @@ fun MenuItem(
             trailing?.invoke()
             if (trailing == null && onClick != null) {
                 Icon(
-                    Icons.Default.ChevronRight,
+                    AppIcons.ChevronRight,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )

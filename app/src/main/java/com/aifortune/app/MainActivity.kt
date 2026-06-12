@@ -8,7 +8,6 @@ import androidx.compose.animation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -25,6 +24,7 @@ import com.aifortune.app.ui.theme.AIFortuneTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import com.aifortune.app.ui.util.AppIcons
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -45,10 +45,10 @@ sealed class BottomNavItem(
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector
 ) {
-    object Home : BottomNavItem(Screen.Home.route, "首页", Icons.Filled.Home, Icons.Outlined.Home)
-    object Features : BottomNavItem(Screen.Features.route, "功能", Icons.Filled.AutoAwesome, Icons.Outlined.AutoAwesome)
-    object Api : BottomNavItem(Screen.ApiPanel.route, "API", Icons.Filled.Settings, Icons.Outlined.Settings)
-    object Profile : BottomNavItem(Screen.Profile.route, "我的", Icons.Filled.Person, Icons.Outlined.Person)
+    object Home : BottomNavItem(Screen.Home.route, "首页", Icons.Filled.Home, Icons.Filled.Home)
+    object Features : BottomNavItem(Screen.Features.route, "功能", AppIcons.AutoAwesome, AppIcons.AutoAwesome)
+    object Api : BottomNavItem(Screen.ApiPanel.route, "API", Icons.Filled.Settings, Icons.Filled.Settings)
+    object Profile : BottomNavItem(Screen.Profile.route, "我的", Icons.Filled.Person, Icons.Filled.Person)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

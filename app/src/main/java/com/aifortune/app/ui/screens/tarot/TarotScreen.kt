@@ -28,6 +28,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.aifortune.app.ui.components.AnimatedGradientButton
 import com.aifortune.app.ui.components.LoadingAnimation
 import com.aifortune.app.ui.theme.*
+import com.aifortune.app.ui.util.AppIcons
 
 data class TarotCardData(val id: Int, val name: String, val nameEn: String, val meaning: String)
 
@@ -80,7 +81,7 @@ fun TarotScreen(
         Column(modifier = Modifier.fillMaxSize().padding(padding).padding(horizontal = 20.dp).verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
             Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(20.dp), colors = CardDefaults.cardColors(containerColor = PrimaryIndigo.copy(alpha = 0.1f))) {
                 Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Box(modifier = Modifier.size(48.dp).clip(RoundedCornerShape(12.dp)).background(brush = Brush.linearGradient(colors = listOf(PrimaryIndigo, PrimaryViolet))), contentAlignment = Alignment.Center) { Icon(Icons.Default.Psychology, null, tint = Color.White, modifier = Modifier.size(24.dp)) }
+                    Box(modifier = Modifier.size(48.dp).clip(RoundedCornerShape(12.dp)).background(brush = Brush.linearGradient(colors = listOf(PrimaryIndigo, PrimaryViolet))), contentAlignment = Alignment.Center) { Icon(AppIcons.Psychology, null, tint = Color.White, modifier = Modifier.size(24.dp)) }
                     Spacer(modifier = Modifier.width(12.dp))
                     Column { Text("塔罗牌解读", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold); Text("神秘塔罗牌阵解读", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                 }
@@ -94,7 +95,7 @@ fun TarotScreen(
                     isDrawing = true
                 }, contentAlignment = Alignment.Center) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Icon(Icons.Default.AutoAwesome, null, tint = Color.White, modifier = Modifier.size(40.dp))
+                        Icon(AppIcons.AutoAwesome, null, tint = Color.White, modifier = Modifier.size(40.dp))
                         Spacer(modifier = Modifier.height(8.dp))
                         Text("点击抽牌", color = Color.White, style = MaterialTheme.typography.bodySmall)
                     }
@@ -135,7 +136,7 @@ fun TarotScreen(
             Spacer(modifier = Modifier.height(24.dp))
 
             if (showCards && selectedCards.isNotEmpty()) {
-                AnimatedGradientButton(text = if (uiState.isLoading) "解读中..." else "开始解读", onClick = { viewModel.queryTarot(selectedCards) }, modifier = Modifier.fillMaxWidth(), icon = Icons.Default.AutoAwesome, enabled = !uiState.isLoading)
+                AnimatedGradientButton(text = if (uiState.isLoading) "解读中..." else "开始解读", onClick = { viewModel.queryTarot(selectedCards) }, modifier = Modifier.fillMaxWidth(), icon = AppIcons.AutoAwesome, enabled = !uiState.isLoading)
             }
 
             if (uiState.isLoading) { Spacer(modifier = Modifier.height(24.dp)); Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) { LoadingAnimation() } }

@@ -28,6 +28,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.aifortune.app.domain.model.ApiConfig
 import com.aifortune.app.ui.theme.PrimaryIndigo
 import com.aifortune.app.ui.theme.PrimaryViolet
+import com.aifortune.app.ui.util.AppIcons
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -115,7 +116,7 @@ fun ApiPanelScreen(
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Icon(
-                            Icons.Default.CloudOff,
+                            AppIcons.CloudOff,
                             contentDescription = null,
                             modifier = Modifier.size(64.dp),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
@@ -211,7 +212,7 @@ fun ApiConfigCard(
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
-                            Icons.Default.Api,
+                            AppIcons.Api,
                             contentDescription = null,
                             tint = Color.White,
                             modifier = Modifier.size(20.dp)
@@ -385,7 +386,7 @@ fun ApiConfigDialog(
                     trailingIcon = {
                         IconButton(onClick = { showPassword = !showPassword }) {
                             Icon(
-                                if (showPassword) Icons.Default.VisibilityOff else Icons.Default.Visibility,
+                                if (showPassword) AppIcons.VisibilityOff else AppIcons.Visibility,
                                 contentDescription = null
                             )
                         }

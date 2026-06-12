@@ -28,6 +28,7 @@ import com.aifortune.app.ui.theme.PrimaryIndigo
 import com.aifortune.app.ui.theme.PrimaryViolet
 import java.text.SimpleDateFormat
 import java.util.*
+import com.aifortune.app.ui.util.AppIcons
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -96,7 +97,7 @@ fun HistoryScreen(
                 actions = {
                     if (uiState.items.isNotEmpty()) {
                         IconButton(onClick = { showClearDialog = true }) {
-                            Icon(Icons.Default.DeleteSweep, contentDescription = "清空")
+                            Icon(AppIcons.DeleteSweep, contentDescription = "清空")
                         }
                     }
                 },
@@ -163,7 +164,7 @@ private fun EmptyHistoryView(modifier: Modifier = Modifier) {
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Icon(
-                Icons.Default.History,
+                AppIcons.History,
                 contentDescription = null,
                 modifier = Modifier.size(80.dp),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)

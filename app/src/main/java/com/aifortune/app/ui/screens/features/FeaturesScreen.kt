@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.aifortune.app.ui.components.FeatureCard
 import com.aifortune.app.ui.theme.PrimaryIndigo
 import com.aifortune.app.ui.theme.PrimaryViolet
+import com.aifortune.app.ui.util.AppIcons
 
 data class FeatureItem(
     val title: String,
@@ -31,12 +32,12 @@ data class FeatureItem(
 )
 
 val features = listOf(
-    FeatureItem("八字命理", "深度分析命理格局、运势预测", Icons.Default.AccountBalance, "bazi"),
-    FeatureItem("求学建议", "学业规划、备考策略指导", Icons.Default.School, "xueye"),
-    FeatureItem("求商建议", "商业决策、商业机会分析", Icons.Default.TrendingUp, "shangye"),
+    FeatureItem("八字命理", "深度分析命理格局、运势预测", AppIcons.AccountBalance, "bazi"),
+    FeatureItem("求学建议", "学业规划、备考策略指导", AppIcons.School, "xueye"),
+    FeatureItem("求商建议", "商业决策、商业机会分析", AppIcons.TrendingUp, "shangye"),
     FeatureItem("星座分析", "星座性格、运势解读", Icons.Default.Star, "xingzuo"),
-    FeatureItem("姓名分析", "姓名含义、五行运势", Icons.Default.Badge, "name"),
-    FeatureItem("塔罗牌", "神秘塔罗牌阵解读", Icons.Default.Psychology, "tarot"),
+    FeatureItem("姓名分析", "姓名含义、五行运势", AppIcons.Badge, "name"),
+    FeatureItem("塔罗牌", "神秘塔罗牌阵解读", AppIcons.Psychology, "tarot"),
     FeatureItem("起名字", "AI智能生成好名字", Icons.Default.Edit, "namegen")
 )
 

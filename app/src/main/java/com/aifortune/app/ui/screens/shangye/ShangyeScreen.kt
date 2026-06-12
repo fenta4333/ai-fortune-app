@@ -20,6 +20,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.aifortune.app.ui.components.AnimatedGradientButton
 import com.aifortune.app.ui.components.LoadingAnimation
 import com.aifortune.app.ui.theme.*
+import com.aifortune.app.ui.util.AppIcons
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,7 +53,7 @@ fun ShangyeScreen(
             ) {
                 Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
                     Box(modifier = Modifier.size(48.dp).clip(RoundedCornerShape(12.dp)).background(brush = Brush.linearGradient(colors = listOf(PrimaryIndigo, PrimaryViolet))), contentAlignment = Alignment.Center) {
-                        Icon(Icons.Default.TrendingUp, null, tint = Color.White, modifier = Modifier.size(24.dp))
+                        Icon(AppIcons.TrendingUp, null, tint = Color.White, modifier = Modifier.size(24.dp))
                     }
                     Spacer(modifier = Modifier.width(12.dp))
                     Column {
@@ -81,7 +82,7 @@ fun ShangyeScreen(
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            AnimatedGradientButton(text = if (uiState.isLoading) "分析中..." else "获取建议", onClick = { viewModel.queryShangye(name, businessIdea, budget, riskTolerance) }, modifier = Modifier.fillMaxWidth(), icon = Icons.Default.AutoAwesome, enabled = name.isNotBlank() && businessIdea.isNotBlank() && !uiState.isLoading)
+            AnimatedGradientButton(text = if (uiState.isLoading) "分析中..." else "获取建议", onClick = { viewModel.queryShangye(name, businessIdea, budget, riskTolerance) }, modifier = Modifier.fillMaxWidth(), icon = AppIcons.AutoAwesome, enabled = name.isNotBlank() && businessIdea.isNotBlank() && !uiState.isLoading)
 
             if (uiState.isLoading) { Spacer(modifier = Modifier.height(24.dp)); Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) { LoadingAnimation() } }
 

@@ -22,6 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.aifortune.app.ui.components.AnimatedGradientButton
 import com.aifortune.app.ui.components.LoadingAnimation
 import com.aifortune.app.ui.theme.*
+import com.aifortune.app.ui.util.AppIcons
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -69,7 +70,7 @@ fun NameGenScreen(
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            AnimatedGradientButton(text = if (uiState.isLoading) "生成中..." else "生成名字", onClick = { viewModel.queryNameGen(surname, gender, birthYear) }, modifier = Modifier.fillMaxWidth(), icon = Icons.Default.AutoAwesome, enabled = surname.isNotBlank() && !uiState.isLoading)
+            AnimatedGradientButton(text = if (uiState.isLoading) "生成中..." else "生成名字", onClick = { viewModel.queryNameGen(surname, gender, birthYear) }, modifier = Modifier.fillMaxWidth(), icon = AppIcons.AutoAwesome, enabled = surname.isNotBlank() && !uiState.isLoading)
 
             if (uiState.isLoading) { Spacer(modifier = Modifier.height(24.dp)); Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) { LoadingAnimation() } }
 

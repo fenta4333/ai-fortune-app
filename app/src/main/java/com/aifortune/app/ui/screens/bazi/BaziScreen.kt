@@ -23,6 +23,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.aifortune.app.ui.components.AnimatedGradientButton
 import com.aifortune.app.ui.components.LoadingAnimation
 import com.aifortune.app.ui.theme.*
+import com.aifortune.app.ui.util.AppIcons
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -86,7 +87,7 @@ fun BaziScreen(
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
-                            Icons.Default.AccountBalance,
+                            AppIcons.AccountBalance,
                             contentDescription = null,
                             tint = Color.White,
                             modifier = Modifier.size(24.dp)
@@ -217,7 +218,7 @@ fun BaziScreen(
                     )
                 },
                 modifier = Modifier.fillMaxWidth(),
-                icon = Icons.Default.AutoAwesome,
+                icon = AppIcons.AutoAwesome,
                 enabled = name.isNotBlank() && !uiState.isLoading
             )
 

@@ -22,6 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.aifortune.app.ui.components.AnimatedGradientButton
 import com.aifortune.app.ui.components.LoadingAnimation
 import com.aifortune.app.ui.theme.*
+import com.aifortune.app.ui.util.AppIcons
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -64,7 +65,7 @@ fun XueyeScreen(
                             .background(brush = Brush.linearGradient(colors = listOf(PrimaryIndigo, PrimaryViolet))),
                         contentAlignment = Alignment.Center
                     ) {
-                        Icon(Icons.Default.School, contentDescription = null, tint = Color.White, modifier = Modifier.size(24.dp))
+                        Icon(AppIcons.School, contentDescription = null, tint = Color.White, modifier = Modifier.size(24.dp))
                     }
                     Spacer(modifier = Modifier.width(12.dp))
                     Column {
@@ -104,7 +105,7 @@ fun XueyeScreen(
                 text = if (uiState.isLoading) "分析中..." else "获取建议",
                 onClick = { viewModel.queryXueye(name, grade, targetSchool) },
                 modifier = Modifier.fillMaxWidth(),
-                icon = Icons.Default.AutoAwesome,
+                icon = AppIcons.AutoAwesome,
                 enabled = name.isNotBlank() && !uiState.isLoading
             )
 

@@ -24,6 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.aifortune.app.ui.components.AnimatedGradientButton
 import com.aifortune.app.ui.components.LoadingAnimation
 import com.aifortune.app.ui.theme.*
+import com.aifortune.app.ui.util.AppIcons
 
 data class ZodiacSign(val name: String, val dates: String, val emoji: String)
 
@@ -106,7 +107,7 @@ fun XingzuoScreen(
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            AnimatedGradientButton(text = if (uiState.isLoading) "分析中..." else "开始分析", onClick = { selectedSign?.let { viewModel.queryXingzuo(it.name, questionType) } }, modifier = Modifier.fillMaxWidth(), icon = Icons.Default.AutoAwesome, enabled = selectedSign != null && !uiState.isLoading)
+            AnimatedGradientButton(text = if (uiState.isLoading) "分析中..." else "开始分析", onClick = { selectedSign?.let { viewModel.queryXingzuo(it.name, questionType) } }, modifier = Modifier.fillMaxWidth(), icon = AppIcons.AutoAwesome, enabled = selectedSign != null && !uiState.isLoading)
 
             if (uiState.isLoading) { Spacer(modifier = Modifier.height(24.dp)); Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) { LoadingAnimation() } }
 
