@@ -322,7 +322,7 @@ fun ProfileScreen(
                     ) {
                         if (themeConfig.backgroundImagePath == null) {
                             Icon(
-                                imageVector = Icons.Default.Image,
+                                imageVector = AppIcons.Image,
                                 contentDescription = null,
                                 modifier = Modifier.size(40.dp),
                                 tint = palette.onSurfaceVariant

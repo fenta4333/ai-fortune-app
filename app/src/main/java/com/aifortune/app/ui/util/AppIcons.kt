@@ -510,4 +510,34 @@ object AppIcons {
             close()
         }
     }
+
+    val Image: ImageVector = materialIcon(name = "Filled.Image") {
+        materialPath {
+            moveTo(21.0f, 19.0f)
+            verticalLineTo(5.0f)
+            curveToRelative(0.0f, -1.1f, -0.9f, -2.0f, -2.0f, -2.0f)
+            horizontalLineTo(5.0f)
+            curveTo(3.9f, 3.0f, 3.0f, 3.9f, 3.0f, 5.0f)
+            verticalLineToRelative(14.0f)
+            curveToRelative(0.0f, 1.1f, 0.9f, 2.0f, 2.0f, 2.0f)
+            horizontalLineToRelative(14.0f)
+            curveTo(20.1f, 21.0f, 21.0f, 20.1f, 21.0f, 19.0f)
+            close()
+            moveTo(5.0f, 5.0f)
+            horizontalLineToRelative(14.0f)
+            verticalLineToRelative(14.0f)
+            horizontalLineTo(5.0f)
+            verticalLineTo(5.0f)
+            close()
+            moveTo(8.0f, 13.0f)
+            lineToRelative(3.0f, 4.0f)
+            lineToRelative(4.0f, -5.0f)
+            lineToRelative(3.0f, 4.0f)
+            horizontalLineToRelative(2.0f)
+            verticalLineToRelative(1.0f)
+            horizontalLineTo(6.0f)
+            lineToRelative(2.0f, -4.0f)
+            close()
+        }
+    }
 }
