@@ -1,18 +1,19 @@
 package com.aifortune.app.ui.components
 
 import android.graphics.BitmapFactory
+import android.os.Build
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import com.aifortune.app.ui.theme.LocalThemePalette
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.aifortune.app.ui.theme.LocalThemePalette
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -52,17 +53,15 @@ fun BackgroundContainer(
     }
 
     Box(modifier = modifier.fillMaxSize()) {
-        // 层级1: 背景图片（带模糊）
+        // 层级1: 背景图片（blur 仅 API 31+）
         if (bgBitmap != null) {
+            val blurDp = if (blurRadius > 0f) blurRadius.toBlurDp() else 0.dp
             Image(
                 bitmap = bgBitmap!!.asImageBitmap(),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .then(
-                        if (blurRadius > 0f) Modifier.blur(radiusX = blurRadius.toBlurDp()) else Modifier
-                    )
+                modifier = Modifier.fillMaxSize()
+                    .blurIfSupported(blurDp)
             )
         }
 
@@ -100,6 +99,16 @@ fun BackgroundContainer(
     }
 }
 
-private fun Float.toBlurDp(): androidx.compose.ui.unit.Dp {
+// 安全模糊扩展（API 31+ 生效，低版本自动跳过）
+@Suppress("NewApi")
+private fun Modifier.blurIfSupported(radius: Dp): Modifier {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && radius > 0.dp) {
+        this.then(androidx.compose.ui.draw.blur(radiusX = radius))
+    } else {
+        this
+    }
+}
+
+private fun Float.toBlurDp(): Dp {
     return (this.coerceIn(0f, 25f)).dp
 }

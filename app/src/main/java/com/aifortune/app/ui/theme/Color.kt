@@ -15,6 +15,10 @@ import androidx.core.view.WindowCompat
 // 使用 ThemeManager 的动态配色方案
 // ============================================================
 
+// 向后兼容别名（CommonComponents 等引用）
+val PrimaryIndigo get() = ThemePalettes[ThemeVariant.DEEP_INK]!!.gradientStart
+val PrimaryViolet get() = ThemePalettes[ThemeVariant.DEEP_INK]!!.gradientEnd
+
 @Composable
 fun AIFortuneTheme(
     config: ThemeConfig = ThemeConfig(),
