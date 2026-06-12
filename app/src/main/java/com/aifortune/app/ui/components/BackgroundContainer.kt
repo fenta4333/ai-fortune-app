@@ -104,7 +104,7 @@ fun BackgroundContainer(
 private fun Modifier.blurIfSupported(radius: Dp): Modifier {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && radius > 0.dp) {
         @Suppress("NewApi")
-        this.blur(radiusX = radius)
+        this.blur(radius = radius)
     } else {
         this
     }
