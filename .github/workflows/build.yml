@@ -27,15 +27,14 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
         
-      - name: Build Debug APK
+      - name: Build APKs
         run: |
-          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee /tmp/build.log
+          set -o pipefail
+          ./gradlew assembleDebug assembleRelease --no-daemon --stacktrace 2>&1 | tee /tmp/build.log
           echo "=== BUILD_EXIT_CODE ===" >> /tmp/build.log
           echo "$?" >> /tmp/build.log
-        
-      - name: Build Release APK (slim)
-        run: |
-          ./gradlew assembleRelease --no-daemon 2>&1 | tail -5
+          echo "=== APK FILES ===" >> /tmp/build.log
+          find app/build/outputs/apk -name "*.apk" -exec ls -lh {} \; >> /tmp/build.log
         
       - name: Upload Build Log
         if: always()
@@ -45,16 +44,11 @@ jobs:
           path: /tmp/build.log
           retention-days: 1
         
-      - name: Upload Debug APK
+      - name: Upload APK
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
-          
-      - name: Upload Release APK (slim)
-        if: success()
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release-slim
-          path: app/build/outputs/apk/release/app-release-unsigned.apk
+          name: app-apks
+          path: |
+            app/build/outputs/apk/debug/*.apk
+            app/build/outputs/apk/release/*.apk
