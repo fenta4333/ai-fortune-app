@@ -1,6 +1,7 @@
 package com.aifortune.app.ui.screens.profile
 
 import android.net.Uri
+import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.*
@@ -596,12 +597,12 @@ private fun MenuItem(
     }
 }
 
-// 自定义 blur 扩展
+// 自定义 blur 扩展（API 31+）
 private fun Modifier.blur(radiusX: androidx.compose.ui.unit.Dp, radiusY: androidx.compose.ui.unit.Dp): Modifier {
-    return this.then(
-        androidx.compose.ui.draw.blur(
-            radiusX = radiusX,
-            radiusY = radiusY
-        )
-    )
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && radiusX > 0.dp) {
+        @Suppress("NewApi")
+        this.blur(radiusX = radiusX, radiusY = radiusY)
+    } else {
+        this
+    }
 }

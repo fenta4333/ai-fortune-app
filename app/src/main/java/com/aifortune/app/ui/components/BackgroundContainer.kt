@@ -100,10 +100,10 @@ fun BackgroundContainer(
 }
 
 // 安全模糊扩展（API 31+ 生效，低版本自动跳过）
-@Suppress("NewApi")
 private fun Modifier.blurIfSupported(radius: Dp): Modifier {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && radius > 0.dp) {
-        this.then(androidx.compose.ui.draw.blur(radiusX = radius))
+        @Suppress("NewApi")
+        this.blur(radiusX = radius)
     } else {
         this
     }
