@@ -247,7 +247,7 @@ fun BaziScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
-                            Icons.Default.Error,
+                            AppIcons.Error,
                             contentDescription = null,
                             tint = MaterialTheme.colorScheme.error
                         )
